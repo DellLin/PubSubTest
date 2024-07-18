@@ -25,7 +25,7 @@ app.MapGet("/PubSubTest", async () =>
 })
 .WithName("PubSubTest")
 .WithOpenApi();
-
+ThreadPool.SetMinThreads(80, 80);
 app.Run();
 
 
