@@ -1,5 +1,6 @@
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,10 +45,15 @@ async Task SendMessage()
     try
     {
         // 將消息轉換為 ByteString
-        ByteString data = ByteString.CopyFromUtf8(message);
+        ByteString data = ByteString.CopyFromUtf8(JsonConvert.SerializeObject(new { message }));
+        PubsubMessage pubsubMessage = new PubsubMessage
+        {
+            Data = data,
+            Attributes = { { "Content-Type", "application/json" } }
 
+        };
         // 發布消息
-        string messageId = await publisher.PublishAsync(data);
+        string messageId = await publisher.PublishAsync(pubsubMessage);
 
         Console.WriteLine($"消息已發布。Message ID: {messageId}");
     }

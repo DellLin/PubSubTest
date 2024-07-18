@@ -3,7 +3,7 @@ using System.Diagnostics;
 using Google.Cloud.PubSub.V1;
 using Google.Protobuf;
 
-const int concurrentCalls = 1000;  // 並發呼叫數
+const int concurrentCalls = 40;  // 並發呼叫數
 const int totalCalls = 10000;      // 總呼叫次數
 
 var stopwatch = Stopwatch.StartNew();
